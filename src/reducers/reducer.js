@@ -21,6 +21,18 @@ const initialValue = {
 
 export function reducer(state = initialValue, action) {
   switch (action.type) {
+    case ADDED_FEATURES:
+      return {
+        ...state,
+        features: [
+          ...state.features,
+          state.store.map(item => {
+            if (item.id === action.payload.id) {
+              return { ...item };
+            }
+          })
+        ]
+      };
     default:
       return state;
   }

@@ -11,7 +11,7 @@ export const ADDED_FEATURES = 'ADDED_FEATURES';
 //action creator function
 export const addedFeatures = feature => {
   // action object
-  return { type: ADDED_FEATURES, feature };
+  return { type: ADDED_FEATURES, payload: feature };
 };
 
 // Delete Feature Action Creator
@@ -21,7 +21,7 @@ export const DELETE_ADDED_FEATURES = 'DELETE_ADDED_FEATURES';
 //action creator function
 export const deleteAddedFeatures = deletedFeature => {
   //action object
-  return { type: DELETE_ADDED_FEATURES, deletedFeature };
+  return { type: DELETE_ADDED_FEATURES, payload: deletedFeature };
 };
 
 // Updat Total Action Creator
