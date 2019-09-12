@@ -29,7 +29,15 @@ export function reducer(state = initialValue, action) {
           ...state.car,
           price: state.car.price + action.payload.price,
           features: [...state.car.features, action.payload]
-        }
+        },
+
+        store: state.store.filter(
+          ({ id }) =>
+            ![
+              ...state.car.features.map(({ id }) => id),
+              action.payload.id
+            ].includes(id)
+        )
       };
 
     case DELETE_ADDED_FEATURES:
@@ -37,8 +45,17 @@ export function reducer(state = initialValue, action) {
         ...state,
         car: {
           ...state.car,
-          price: state.car.price - action.payload.price
-        }
+          price: state.car.price - action.payload.price,
+          features: state.car.features.filter(
+            feature =>
+              ![
+                ...state.store.map(feature => feature.id),
+                action.payload.id
+              ].includes(feature.id)
+          )
+        },
+
+        store: [...state.store, action.payload]
       };
     default:
       return state;
