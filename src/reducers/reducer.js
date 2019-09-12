@@ -1,6 +1,5 @@
 import { ADDED_FEATURES } from '../actions';
 import { DELETE_ADDED_FEATURES } from '../actions';
-import { UPDATED_TOTAL } from '../actions';
 
 const initialValue = {
   additionalPrice: 0,
@@ -20,18 +19,26 @@ const initialValue = {
 };
 
 export function reducer(state = initialValue, action) {
+  console.log('made it to the reducer', action);
+  console.log('This is the payload', action.payload);
   switch (action.type) {
     case ADDED_FEATURES:
       return {
         ...state,
-        features: [
-          ...state.features,
-          state.store.map(item => {
-            if (item.id === action.payload.id) {
-              return { ...item };
-            }
-          })
-        ]
+        car: {
+          ...state.car,
+          price: state.car.price + action.payload.price,
+          features: [...state.car.features, action.payload]
+        }
+      };
+
+    case DELETE_ADDED_FEATURES:
+      return {
+        ...state,
+        car: {
+          ...state.car,
+          price: state.car.price - action.payload.price
+        }
       };
     default:
       return state;
